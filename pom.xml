@@ -24,7 +24,8 @@
         <bytebuddy.version>1.14.8</bytebuddy.version>
         <mockito.version>5.5.0</mockito.version>
         <hibernate.validator.version>8.0.1.Final</hibernate.validator.version>
-
+        <javax.el-api.version>3.0.0</javax.el-api.version>
+        <expressly.version>5.0.0</expressly.version>
 
 
     </properties>
@@ -70,12 +71,12 @@
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>javax.el-api</artifactId>
-            <version>3.0.0</version>
+            <version>${javax.el-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.expressly</groupId>
             <artifactId>expressly</artifactId>
-            <version>5.0.0</version>
+            <version>${expressly.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>

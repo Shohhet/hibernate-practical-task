@@ -61,8 +61,7 @@ public class DeveloperServiceImpl implements DeveloperService {
                     .specialty(getDeveloperSpecialty(dto.specialty()))
                     .status(Status.ACTIVE)
                     .build();
-            developerRepository.add(developer);
-            return Optional.of(developer.getId());
+            return Optional.of(developerRepository.add(developer).getId());
         }
     }
 

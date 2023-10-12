@@ -6,8 +6,8 @@ import com.shoggoth.hibernateapp.model.repository.impl.SkillRepositoryImpl;
 import com.shoggoth.hibernateapp.servise.dto.SkillDto;
 import com.shoggoth.hibernateapp.servise.mapper.DtoToSkillMapper;
 import com.shoggoth.hibernateapp.servise.mapper.SkillToDtoMapper;
-import org.hibernate.annotations.AttributeAccessor;
-import org.junit.jupiter.api.BeforeAll;
+import com.shoggoth.hibernateapp.servise.utils.ValidationUtils;
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -19,8 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class SkillServiceImplTest {
     static final String skillName = "Java";
     static final String notValidSkillName = "2424eszfsz";
-    static final String stringId = "1";
-    static final String notValidStringId = "1ef";
     static final Long id = 1L;
     SkillRepositoryImpl skillRepository;
     SkillServiceImpl skillService;
@@ -40,13 +38,70 @@ class SkillServiceImplTest {
     }
 
     @Test
-    public void whenAddingSkillDoesNotExistThenReturnOptionalOfSkill() {
-
+    public void whenAddingSkillDoesNotExistThenReturnOptionalOfSkillId() {
         Mockito.when(skillRepository.add(Mockito.any(SkillEntity.class))).thenReturn(skill);
         Mockito.when(skillRepository.getByName(skillName)).thenReturn(Optional.empty());
         assertEquals(Optional.of(id), skillService.add(skillDto));
+    }
 
+    @Test
+    public void whenAddingSkillAlreadyExistThenReturnOptionalOfEmpty() {
+        Mockito.when(skillRepository.getByName(skillName)).thenReturn(Optional.of(skill));
+        assertEquals(Optional.empty(), skillService.add(skillDto));
+    }
 
+    @Test
+    public void whenAddingSkillNameNotValidThenThrowException() {
+        var notValidSkillDto = new SkillDto(id, notValidSkillName);
+        assertThrows(
+                ConstraintViolationException.class,
+                () -> skillService.add(notValidSkillDto),
+                ValidationUtils.WRONG_SKILL_NAME_FORMAT);
+    }
+
+    @Test
+    public void whenUpdatingSkillExistThenReturnTrue() {
+        Mockito.when(skillRepository.get(id)).thenReturn(Optional.of(skill));
+        assertTrue(skillService.update(skillDto));
+    }
+
+    @Test
+    public void whenUpdatingSkillDoesNotExistThenReturnFalse() {
+        Mockito.when(skillRepository.get(id)).thenReturn(Optional.empty());
+        assertFalse(skillService.update(skillDto));
+    }
+
+    @Test
+    public void whenUpdatingSkillNameNotValidThenThrowServiceException() {
+        var notValidSkillDto = new SkillDto(id, notValidSkillName);
+        assertThrows(
+                ConstraintViolationException.class,
+                () -> skillService.update(notValidSkillDto),
+                ValidationUtils.WRONG_SKILL_NAME_FORMAT);
+    }
+
+    @Test
+    public void whenDeletingSkillExistThenReturnTrue() {
+        Mockito.when(skillRepository.get(id)).thenReturn(Optional.of(skill));
+        assertTrue(skillService.delete(id));
+    }
+
+    @Test
+    public void whenDeletingSkillDoesNotExistThenReturnFalse() {
+        Mockito.when(skillRepository.get(id)).thenReturn(Optional.empty());
+        assertFalse(skillService.delete(id));
+    }
+
+    @Test
+    public void whenGettingSkillExistThenReturnOptionalOfSkill() {
+        Mockito.when(skillRepository.get(id)).thenReturn(Optional.of(skill));
+        assertEquals(Optional.of(skillDto), skillService.getById(id));
+    }
+
+    @Test
+    public void whenGettingSkillDoesNotExistThenReturnOptionalOfEmpty() {
+        Mockito.when(skillRepository.get(id)).thenReturn(Optional.empty());
+        assertEquals(Optional.empty(), skillService.getById(id));
     }
 
 }
