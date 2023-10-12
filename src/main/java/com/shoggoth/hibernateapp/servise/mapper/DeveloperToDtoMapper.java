@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 public class DeveloperToDtoMapper implements Mapper<DeveloperEntity, DeveloperDto> {
     private final SkillToDtoMapper skillToDtoMapper;
     private final SpecialtyToDtoMapper specialtyToDtoMapper;
+
     @Override
     public DeveloperDto mapFrom(DeveloperEntity entity) {
         return new DeveloperDto(
@@ -17,7 +18,7 @@ public class DeveloperToDtoMapper implements Mapper<DeveloperEntity, DeveloperDt
                 entity.getSkills().stream()
                         .map(skillToDtoMapper::mapFrom)
                         .toList(),
-                specialtyToDtoMapper.mapFrom(entity.getSpecialty())
+                entity.getSpecialty() == null ? null : specialtyToDtoMapper.mapFrom(entity.getSpecialty())
         );
     }
 }

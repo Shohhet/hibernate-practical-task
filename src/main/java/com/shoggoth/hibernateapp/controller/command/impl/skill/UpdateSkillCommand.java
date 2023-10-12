@@ -3,9 +3,10 @@ package com.shoggoth.hibernateapp.controller.command.impl.skill;
 import com.shoggoth.hibernateapp.controller.command.Command;
 import com.shoggoth.hibernateapp.controller.command.impl.CommandUtils;
 import com.shoggoth.hibernateapp.servise.SkillService;
+import com.shoggoth.hibernateapp.servise.impl.SkillServiceImpl;
 import com.shoggoth.hibernateapp.servise.dto.SkillDto;
-import com.shoggoth.hibernateapp.servise.dto.SpecialtyDto;
 import com.shoggoth.hibernateapp.view.UserInterface;
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -29,6 +30,8 @@ public class UpdateSkillCommand implements Command {
             }
         } catch (NumberFormatException e) {
             ui.writeToConsole(String.format(CommandUtils.WRONG_ID_FORMAT_MSG, stringId));
+        } catch (ConstraintViolationException ce) {
+            ui.writeToConsole(ce.getMessage());
         }
     }
 }

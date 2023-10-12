@@ -2,7 +2,7 @@ package com.shoggoth.hibernateapp.controller.command.impl.specialty;
 
 import com.shoggoth.hibernateapp.controller.command.Command;
 import com.shoggoth.hibernateapp.controller.command.impl.CommandUtils;
-import com.shoggoth.hibernateapp.servise.SpecialtyService;
+import com.shoggoth.hibernateapp.servise.impl.SpecialtyServiceImpl;
 import com.shoggoth.hibernateapp.view.UserInterface;
 import lombok.RequiredArgsConstructor;
 
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 public class DeleteSpecialtyCommand implements Command {
 
     private final UserInterface ui;
-    private final SpecialtyService service;
+    private final SpecialtyServiceImpl service;
 
     @Override
     public void execute() {

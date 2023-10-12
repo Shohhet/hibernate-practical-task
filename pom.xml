@@ -12,6 +12,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+
         <postgresql.version>42.6.0</postgresql.version>
         <flyway.version>9.21.0</flyway.version>
         <flywayplugin.version>9.22.2</flywayplugin.version>
@@ -19,8 +22,10 @@
         <junit.version>5.10.0</junit.version>
         <lombok.version>1.18.30</lombok.version>
         <bytebuddy.version>1.14.8</bytebuddy.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <mockito.version>5.5.0</mockito.version>
+        <hibernate.validator.version>8.0.1.Final</hibernate.validator.version>
+
+
 
     </properties>
 
@@ -56,6 +61,26 @@
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
             <version>${bytebuddy.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate.validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.expressly</groupId>
+            <artifactId>expressly</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
         </dependency>
     </dependencies>
     <build>

@@ -2,15 +2,16 @@ package com.shoggoth.hibernateapp.controller.command.impl.specialty;
 
 import com.shoggoth.hibernateapp.controller.command.Command;
 import com.shoggoth.hibernateapp.controller.command.impl.CommandUtils;
-import com.shoggoth.hibernateapp.servise.SpecialtyService;
+import com.shoggoth.hibernateapp.servise.impl.SpecialtyServiceImpl;
 import com.shoggoth.hibernateapp.servise.dto.SpecialtyDto;
 import com.shoggoth.hibernateapp.view.UserInterface;
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class UpdateSpecialtyCommand implements Command {
     private final UserInterface ui;
-    private final SpecialtyService service;
+    private final SpecialtyServiceImpl service;
 
     @Override
     public void execute() {
@@ -27,6 +28,8 @@ public class UpdateSpecialtyCommand implements Command {
             }
         } catch (NumberFormatException e) {
             ui.writeToConsole(String.format(CommandUtils.WRONG_ID_FORMAT_MSG, stringId));
+        } catch (ConstraintViolationException ce) {
+            ui.writeToConsole(ce.getMessage());
         }
     }
 }

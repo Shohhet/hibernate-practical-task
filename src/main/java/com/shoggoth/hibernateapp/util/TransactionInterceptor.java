@@ -1,4 +1,4 @@
-package com.shoggoth.hibernateapp.servise;
+package com.shoggoth.hibernateapp.util;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

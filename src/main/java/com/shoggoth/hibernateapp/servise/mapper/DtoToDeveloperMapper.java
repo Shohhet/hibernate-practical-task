@@ -1,6 +1,7 @@
 package com.shoggoth.hibernateapp.servise.mapper;
 
 import com.shoggoth.hibernateapp.model.entity.DeveloperEntity;
+import com.shoggoth.hibernateapp.model.entity.Status;
 import com.shoggoth.hibernateapp.servise.dto.DeveloperDto;
 import lombok.RequiredArgsConstructor;
 
@@ -14,11 +15,8 @@ public class DtoToDeveloperMapper implements Mapper<DeveloperDto, DeveloperEntit
         return DeveloperEntity.builder()
                 .id(dto.id())
                 .firstName(dto.firstName())
-                .lastName(dto.firstName())
-                .skills(dto.skills().stream()
-                        .map(dtoToSkillMapper::mapFrom)
-                        .toList())
-                .specialty(dtoToSpecialtyMapper.mapFrom(dto.specialty()))
+                .lastName(dto.lastName())
+                .status(Status.ACTIVE)
                 .build();
     }
 }

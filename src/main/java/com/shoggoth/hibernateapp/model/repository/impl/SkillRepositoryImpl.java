@@ -22,7 +22,4 @@ public class SkillRepositoryImpl extends GenericRepositoryImpl<Long, SkillEntity
                 .findFirst();
     }
 
-    public void deleteSkillForDevelopers() {
-
-    }
 }
